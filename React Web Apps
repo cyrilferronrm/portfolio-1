@@ -1,0 +1,47 @@
+import React, { useState } from 'react';
+
+const TodoApp = () => {
+  // Состояние для хранения списка задач
+  const [tasks, setTasks] = useState([]);
+  // Состояние для хранения текущей задачи
+  const [currentTask, setCurrentTask] = useState('');
+
+  // Обработчик изменения текущей задачи
+  const handleTaskChange = (event) => {
+    setCurrentTask(event.target.value);
+  };
+
+  // Обработчик добавления новой задачи
+  const handleAddTask = () => {
+    if (currentTask.trim() !== '') {
+      setTasks([...tasks, currentTask]);
+      setCurrentTask('');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Todo App</h1>
+      
+      {/* Ввод новой задачи */}
+      <div>
+        <input 
+          type="text" 
+          placeholder="Введите новую задачу" 
+          value={currentTask} 
+          onChange={handleTaskChange} 
+        />
+        <button onClick={handleAddTask}>Добавить задачу</button>
+      </div>
+
+      {/* Список задач */}
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index}>{task}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default TodoApp;
